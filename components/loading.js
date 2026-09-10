@@ -1,60 +1,59 @@
-import { ShowContent } from "@/components/common";
-
 export function FullPageLoading({ text = "" }) {
-  return (
-    <div
-      className={`h-screen w-full flex flex-col items-center justify-center dark:bg-black bg-white`}
-    >
-      <div className={`loader`} />
-      <ShowContent showContent={Boolean(text)}>
-        <div
-          className={`mt-5 text-center text-lg animate-pulse font-light text-gray-500`}
-        >
-          {text}
-        </div>
-      </ShowContent>
-    </div>
-  );
-}
-
-export function FullPageLoadingOverlay({ loading = false, children }) {
-  if (!loading) return children;
+  const label = text.trim() || "LOADING";
+  const chars = [...label];
+  const caretDelay = `${chars.length * 60 + 250}ms`;
 
   return (
     <div
-      className={`fixed inset-0 flex items-center justify-center dark:bg-black/50 bg-white/50`}
+      role="status"
+      aria-live="polite"
+      className="relative flex h-screen w-full select-none flex-col items-center justify-center overflow-hidden bg-white dark:bg-black"
     >
-      <div className={`loader`} />
-    </div>
-  );
-}
+      <span className="sr-only">
+        {text ? `Redirecting to ${label}` : "Loading"}
+      </span>
 
-export function LoadingSmall({
-  color = "dark:text-white text-black",
-  margin = "mr-3",
-  size = 5,
-}) {
-  return (
-    <div>
-      <svg
-        className={`${margin} size-${size} animate-spin ${color}`}
-        fill="none"
-        viewBox="0 0 24 24"
+      {/* atmosphere */}
+      <div aria-hidden="true" className="fpl-grid fpl-in" />
+
+      {/* viewfinder frame */}
+      <div aria-hidden="true" className="fpl-frame fpl-in">
+        <span className="absolute left-0 top-0 size-3.5 border-l border-t" />
+        <span className="absolute right-0 top-0 size-3.5 border-r border-t" />
+        <span className="absolute bottom-0 left-0 size-3.5 border-b border-l" />
+        <span className="absolute bottom-0 right-0 size-3.5 border-b border-r" />
+      </div>
+
+      {/* microtype */}
+      <p aria-hidden="true" className="fpl-micro fpl-in absolute left-11 top-11">
+        gsw85.com
+      </p>
+      <p
+        aria-hidden="true"
+        className="fpl-micro fpl-in absolute bottom-11 right-11"
       >
-        <circle
-          className="stroke-1 opacity-25"
-          cx="12"
-          cy="12"
-          r="10"
-          stroke="currentColor"
-          strokeWidth="4"
-        />
-        <path
-          className="opacity-75"
-          fill="currentColor"
-          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-        />
-      </svg>
+        external&nbsp;↗
+      </p>
+
+      {/* stage */}
+      <p
+        aria-hidden="true"
+        className="fpl-kicker fpl-in flex items-center gap-2.5"
+      >
+        <span className="fpl-dot" />
+        in transit
+      </p>
+      <h1 aria-hidden="true" className="fpl-word uppercase">
+        {chars.map((ch, i) => (
+          <span key={i} style={{ "--i": i }}>
+            {ch === " " ? " " : ch}
+          </span>
+        ))}
+        <span className="fpl-caret" style={{ "--caret-delay": caretDelay }} />
+      </h1>
+      <div aria-hidden="true" className="fpl-track fpl-in">
+        <span className="fpl-sweep" />
+      </div>
     </div>
   );
 }
