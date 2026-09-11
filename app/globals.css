@@ -1,65 +1,255 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --breakpoint-xs: 480px;
+  --breakpoint-xxl: 1800px;
+  --breakpoint-2xxl: 2250px;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-dark: #0B0F19;
+  --color-accent: #7EAE95;
+  --color-light: #F7F5EF;
+
+  --text-2xs: 0.8125rem;
+  --text-2xs--line-height: 1.125rem;
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+
+  /* Hide Chrome/WebKit number spinners */
+  input[type=number] {
+    @apply appearance-none;
+  }
+
+  /* Hide Chrome/WebKit spinner buttons entirely */
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    display: none;
+  }
+
+}
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
   --loader-primary: #171717;
   --loader-secondary: #FF3D00;
+  --loader3: #171717 90%;
+  --scrollbar-track: rgba(0, 0, 0, 0.05);
+  --scrollbar-thumb: rgba(0, 0, 0, 0.2);
+  --scrollbar-border: rgba(0, 0, 0, 0.1);
+
+  /*dashboard customer return*/
+  --track: 228 228 231;
+  --accent: 139 92 246;   /* purple */
+  --positive: 34 197 94;  /* green */
+
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --loader-primary: #ededed;  /* Adjust for dark mode */
-    --loader-secondary: #FF9D00; /* Adjust for dark mode */
-  }
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --loader-primary: #ededed;
+  --loader-secondary: #FF9D00;
+  --loader3: #ededed 90%;
+  --scrollbar-track: rgba(255, 255, 255, 0.05);
+  --scrollbar-thumb: rgba(255, 255, 255, 0.2);
+  --scrollbar-border: rgba(255, 255, 255, 0.15);
+  /*dashboard customer return*/
+  --track: 63 63 70;
+  --accent: 168 85 247;
+  --positive: 74 222 128;
+
+  /* BlockNote editor dark mode override to match zinc-900 */
+  --mantine-color-body: #18181b;
+  --mantine-color-dark-7: #18181b;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
 
 
-/*CSS LOADER*/
-/*LOADER 1*/
+/*FULL PAGE LOADING — TRANSIT INTERSTITIAL*/
 
-.loader {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  display: inline-block;
-  border-top: 4px solid var(--loader-primary);
-  border-right: 4px solid transparent;
-  box-sizing: border-box;
-  animation: rotation 1s linear infinite;
-}
-
-.loader::after {
-  content: '';
-  box-sizing: border-box;
+.fpl-grid {
   position: absolute;
-  left: 0;
+  inset: 0;
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--loader-primary) 15%, transparent) 1px,
+    transparent 1.3px
+  );
+  background-size: 24px 24px;
+  -webkit-mask-image: radial-gradient(
+    115% 85% at 50% 50%,
+    transparent 42%,
+    #000 82%
+  );
+  mask-image: radial-gradient(115% 85% at 50% 50%, transparent 42%, #000 82%);
+}
+
+.fpl-frame {
+  position: absolute;
+  inset: 1.25rem;
+  pointer-events: none;
+}
+
+.fpl-frame span {
+  position: absolute;
+  border-color: color-mix(in srgb, var(--loader-primary) 32%, transparent);
+}
+
+.fpl-micro {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--loader-primary) 50%, transparent);
+}
+
+.fpl-kicker {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--loader-primary) 55%, transparent);
+}
+
+.fpl-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: var(--loader-secondary);
+  box-shadow: 0 0 0 0
+    color-mix(in srgb, var(--loader-secondary) 55%, transparent);
+  animation: fpl-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.fpl-word {
+  margin-top: 1.25rem;
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+  font-size: clamp(2.75rem, 9vw, 5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+.fpl-ch {
+  display: inline-block;
+  white-space: pre;
+  animation: fpl-rise 0.55s cubic-bezier(0.16, 0.84, 0.3, 1) both;
+  animation-delay: calc(var(--i) * 60ms);
+}
+
+.fpl-caret {
+  display: inline-block;
+  width: 0.12em;
+  height: 0.72em;
+  margin-left: 0.1em;
+  background: var(--loader-secondary);
+  opacity: 0;
+  animation: fpl-blink 1.1s linear infinite;
+  animation-delay: var(--caret-delay, 0ms);
+}
+
+.fpl-track {
+  position: relative;
+  width: min(260px, 60vw);
+  height: 2px;
+  margin-top: 2.25rem;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--loader-primary) 14%, transparent);
+}
+
+.fpl-sweep {
+  position: absolute;
   top: 0;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border-left: 4px solid #FF3D00;
-  border-bottom: 4px solid transparent;
-  animation: rotation 0.5s linear infinite reverse;
+  bottom: 0;
+  left: 0;
+  width: 38%;
+  background: linear-gradient(90deg, transparent, var(--loader-secondary) 90%);
+  animation: fpl-sweep 1.9s cubic-bezier(0.45, 0.05, 0.35, 0.95) infinite;
 }
 
-@keyframes rotation {
-  0% {
-    transform: rotate(0deg);
+.fpl-in {
+  opacity: 0;
+  animation: fpl-in 0.7s ease-out 0.1s forwards;
+}
+
+@keyframes fpl-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.55em) scale(0.95);
   }
+}
+
+@keyframes fpl-blink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  50%,
   100% {
-    transform: rotate(360deg);
+    opacity: 0;
   }
 }
 
-/*END OF CSS LOADER*/
+@keyframes fpl-sweep {
+  0% {
+    transform: translateX(-105%);
+  }
+  60%,
+  100% {
+    transform: translateX(295%);
+  }
+}
+
+@keyframes fpl-ping {
+  75%,
+  100% {
+    box-shadow: 0 0 0 9px transparent;
+  }
+}
+
+@keyframes fpl-in {
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fpl-in,
+  .fpl-word span,
+  .fpl-dot,
+  .fpl-caret,
+  .fpl-sweep {
+    animation: none;
+  }
+
+  .fpl-in,
+  .fpl-caret {
+    opacity: 1;
+  }
+
+  .fpl-sweep {
+    transform: translateX(82%);
+  }
+}
+
+/*END OF FULL PAGE LOADING*/

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { RocketLaunchIcon } from "@heroicons/react/24/solid";
 
 export default function Page() {
@@ -7,10 +6,8 @@ export default function Page() {
       <div className="min-h-full bg-white px-4 py-16 sm:px-6 sm:py-24 grid place-items-center lg:px-8">
         <div className="mx-auto max-w-max">
           <main className="sm:flex">
-            <Image
+            <img
               src={"/img/profile.jpg"}
-              width={200}
-              height={200}
               className="size-20 rounded-full"
               alt="Goh Shu Wei"
               title={`Goh Shu Wei`}
@@ -26,7 +23,7 @@ export default function Page() {
               </div>
               <div className="mt-6 flex space-x-3 sm:border-l sm:border-transparent sm:pl-6">
                 <a
-                  href="https://twitter.com/gsw85"
+                  href="https://x.com/gsw85"
                   target="_blank"
                   rel="noreferrer"
                 >

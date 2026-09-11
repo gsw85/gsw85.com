@@ -7,7 +7,7 @@ export function FullPageLoading({ text = "" }) {
     <div
       role="status"
       aria-live="polite"
-      className="relative flex h-screen w-full select-none flex-col items-center justify-center overflow-hidden bg-white dark:bg-black"
+      className="relative flex h-screen w-full select-none flex-col items-center justify-center overflow-hidden bg-[var(--background)] text-[var(--foreground)]"
     >
       <span className="sr-only">
         {text ? `Redirecting to ${label}` : "Loading"}
@@ -45,8 +45,8 @@ export function FullPageLoading({ text = "" }) {
       </p>
       <h1 aria-hidden="true" className="fpl-word uppercase">
         {chars.map((ch, i) => (
-          <span key={i} style={{ "--i": i }}>
-            {ch === " " ? " " : ch}
+          <span key={i} className="fpl-ch" style={{ "--i": i }}>
+            {ch}
           </span>
         ))}
         <span className="fpl-caret" style={{ "--caret-delay": caretDelay }} />

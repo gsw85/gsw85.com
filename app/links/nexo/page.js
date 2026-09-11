@@ -3,5 +3,5 @@ import { redirect } from "next/navigation";
 
 export default function Page() {
   redirect(process.env.NEXO);
-  return <FullPageLoading />;
+  return <FullPageLoading text="Nexo" />;
 }
