@@ -235,7 +235,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .fpl-in,
-  .fpl-word span,
+  .fpl-ch,
   .fpl-dot,
   .fpl-caret,
   .fpl-sweep {
@@ -253,3 +253,71 @@
 }
 
 /*END OF FULL PAGE LOADING*/
+
+/*NOT FOUND — WRONG PLATFORM*/
+
+.nf-dot {
+  box-sizing: border-box;
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  border: 1px solid var(--loader-secondary);
+}
+
+.nf-code {
+  margin-top: 1.25rem;
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+  font-size: clamp(4.5rem, 16vw, 9rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.nf-zero {
+  color: var(--loader-secondary);
+}
+
+.nf-lede {
+  margin-top: 1.5rem;
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 300;
+  letter-spacing: 0.01em;
+  color: color-mix(in srgb, var(--loader-primary) 72%, transparent);
+}
+
+.nf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin-top: 2.25rem;
+  padding: 0.7rem 1.1rem;
+  border: 1px solid color-mix(in srgb, var(--loader-primary) 35%, transparent);
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--loader-primary);
+  text-decoration: none;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.nf-btn:hover {
+  border-color: var(--loader-secondary);
+  background: var(--loader-secondary);
+  color: #0a0a0a;
+}
+
+.nf-btn:focus-visible {
+  outline: 2px solid var(--loader-secondary);
+  outline-offset: 3px;
+}
+
+.fpl-in-late {
+  animation-delay: 0.55s;
+}
+
+/*END OF NOT FOUND*/
