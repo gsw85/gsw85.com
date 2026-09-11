@@ -13,7 +13,13 @@
 		"binding": "ASSETS",
 		"directory": ".open-next/assets"
 	},
-	"r2_buckets": [],
+	"r2_buckets": [
+		{
+			"binding": "NEXT_INC_CACHE_R2_BUCKET",
+			"bucket_name": "gsw85-next-cache",
+			"remote": true
+		}
+	],
 	"observability": {
 		"enabled": true
 	}
