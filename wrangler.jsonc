@@ -13,6 +13,7 @@
 		"binding": "ASSETS",
 		"directory": ".open-next/assets"
 	},
+	"r2_buckets": [],
 	"observability": {
 		"enabled": true
 	}
