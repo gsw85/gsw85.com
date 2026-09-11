@@ -1,7 +1,5 @@
 @import 'tailwindcss';
 
-@custom-variant dark (&:is(.dark *));
-
 @theme {
   --breakpoint-xs: 480px;
   --breakpoint-xxl: 1800px;
@@ -64,27 +62,6 @@
   --positive: 34 197 94;  /* green */
 
 }
-
-.dark {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --loader-primary: #ededed;
-  --loader-secondary: #FF9D00;
-  --loader3: #ededed 90%;
-  --scrollbar-track: rgba(255, 255, 255, 0.05);
-  --scrollbar-thumb: rgba(255, 255, 255, 0.2);
-  --scrollbar-border: rgba(255, 255, 255, 0.15);
-  /*dashboard customer return*/
-  --track: 63 63 70;
-  --accent: 168 85 247;
-  --positive: 74 222 128;
-
-  /* BlockNote editor dark mode override to match zinc-900 */
-  --mantine-color-body: #18181b;
-  --mantine-color-dark-7: #18181b;
-}
-
-
 
 /*FULL PAGE LOADING — TRANSIT INTERSTITIAL*/
 

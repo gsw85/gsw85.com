@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <div className="relative flex h-screen w-full select-none items-center justify-center overflow-hidden bg-[var(--background)] text-[var(--foreground)]">
+    <div className="relative flex h-screen w-full select-none items-center justify-center overflow-hidden bg-(--background) text-(--foreground)">
       {/* atmosphere */}
       <div aria-hidden="true" className="fpl-grid fpl-in" />
 
