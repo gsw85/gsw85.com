@@ -12,7 +12,7 @@ export default function metaheader(
 
   const description = descriptionInit
     ? descriptionInit
-    : "Dr. Goh's investment portfolio has spread across real estate developments, technology companies and civil engineering projects globally";
+    : "Dr. Goh Shu Wei has had the opportunity to invest in and be involved in real estate, technology and civil engineering projects around the world";
 
   const urlPath = siteURL + path;
 
@@ -24,11 +24,37 @@ export default function metaheader(
       icon: [
         {
           rel: "icon",
+          url: "/icon.svg",
+          type: "image/svg+xml",
+          sizes: "any",
+        },
+        {
+          rel: "icon",
           url: "/favicon.ico",
           type: "image/x-icon",
           sizes: "any",
         },
+        {
+          rel: "icon",
+          url: "/favicon.png",
+          type: "image/png",
+          sizes: "32x32",
+        },
       ],
+    },
+    openGraph: {
+      title,
+      description,
+      url: urlPath,
+      siteName: "Goh S.W.",
+      type: "website",
+      images: [{ url: "/img/profile.jpg", width: 400, height: 400 }],
+    },
+    twitter: {
+      card: "summary",
+      title,
+      description,
+      images: ["/img/profile.jpg"],
     },
     alternates: { canonical: urlPath },
   };
