@@ -104,7 +104,7 @@ export default function Page() {
                 <a
                   href="https://www.instagram.com/gsw85"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noreferrer" className={"sr-only"}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
